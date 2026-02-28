@@ -1,0 +1,153 @@
+{
+  "info": {
+    "name": "Medical AI Multi-Agent API",
+    "description": "API collection for testing the Medical AI Multi-Agent System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the API is running and healthy"
+      }
+    },
+    {
+      "name": "Root",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": ["{{base_url}}"],
+          "path": [""]
+        },
+        "description": "Get API information"
+      }
+    },
+    {
+      "name": "Upload Medical Report (PDF)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/path/to/medical_report.pdf",
+              "description": "Medical report PDF file"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/upload-report",
+          "host": ["{{base_url}}"],
+          "path": ["upload-report"]
+        },
+        "description": "Upload a medical report PDF for analysis"
+      }
+    },
+    {
+      "name": "Analyze Text",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "text",
+              "value": "LABORATORY REPORT\\nPatient: John Doe\\nDate: 2024-01-15\\n\\nHEMATOLOGY:\\nHemoglobin: 13.5 g/dL (Normal: 13.5-17.5)\\nWBC: 7.2 x10^3/μL (Normal: 4.0-11.0)\\n\\nTHYROID:\\nTSH: 8.5 mIU/L (Normal: 0.4-4.0) - HIGH\\n\\nCHEMISTRY:\\nGlucose (Fasting): 95 mg/dL (Normal: 70-100)\\nCholesterol: 185 mg/dL (Desirable: <200)",
+              "description": "Medical report text to analyze",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/analyze-text",
+          "host": ["{{base_url}}"],
+          "path": ["analyze-text"]
+        },
+        "description": "Analyze medical report text directly (without PDF upload)"
+      }
+    },
+    {
+      "name": "Analyze Normal Results",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "text",
+              "value": "LABORATORY REPORT\\nPatient: Jane Smith\\nDate: 2024-01-20\\n\\nHEMATOLOGY:\\nHemoglobin: 14.2 g/dL (Normal: 12.0-16.0)\\nWBC: 6.5 x10^3/μL (Normal: 4.0-11.0)\\nRBC: 4.5 x10^6/μL (Normal: 4.0-5.5)\\nPlatelets: 220 x10^3/μL (Normal: 150-400)\\n\\nCHEMISTRY:\\nGlucose (Fasting): 88 mg/dL (Normal: 70-100)\\nCholesterol: 175 mg/dL (Desirable: <200)\\nCreatinine: 0.9 mg/dL (Normal: 0.6-1.2)\\n\\nTHYROID:\\nTSH: 2.1 mIU/L (Normal: 0.4-4.0)\\n\\nLIVER FUNCTION:\\nALT: 28 U/L (Normal: 7-56)\\nAST: 25 U/L (Normal: 10-40)",
+              "description": "Medical report with all normal values",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/analyze-text",
+          "host": ["{{base_url}}"],
+          "path": ["analyze-text"]
+        },
+        "description": "Test with a report that has all normal values"
+      }
+    },
+    {
+      "name": "Analyze Critical Results",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "text",
+              "value": "LABORATORY REPORT - URGENT\\nPatient: Emergency Case\\nDate: 2024-01-25\\n\\nHEMATOLOGY:\\nHemoglobin: 7.5 g/dL (Normal: 13.5-17.5) - CRITICAL LOW\\nWBC: 18.5 x10^3/μL (Normal: 4.0-11.0) - HIGH\\nPlatelets: 85 x10^3/μL (Normal: 150-400) - LOW\\n\\nCHEMISTRY:\\nGlucose: 450 mg/dL (Normal: 70-100) - CRITICAL HIGH\\nCreatinine: 3.5 mg/dL (Normal: 0.6-1.2) - CRITICAL HIGH\\n\\nLIVER FUNCTION:\\nALT: 185 U/L (Normal: 7-56) - HIGH\\nAST: 220 U/L (Normal: 10-40) - HIGH",
+              "description": "Medical report with critical abnormal values",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/analyze-text",
+          "host": ["{{base_url}}"],
+          "path": ["analyze-text"]
+        },
+        "description": "Test with critical abnormal values requiring immediate attention"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    }
+  ]
+}
